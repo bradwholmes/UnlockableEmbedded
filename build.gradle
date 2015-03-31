@@ -2,26 +2,22 @@
 apply plugin: 'c'
 apply plugin: 'cunit'
 
-executables {
-}
-
-libraries {
-    main {}
-}
-
 model {
-    repositories {
-        libs(PrebuiltLibraries) {
-            cunit {
-                headers.srcDir "lib/cunit/2.1-2/include"
-                binaries.withType(StaticLibraryBinary) {
-                    staticLibraryFile =
-                        file("lib/cunit/2.1-2/lib/" +
-                             findCUnitLibForPlatform(targetPlatform))
-                }
-            }
+  components {
+    main(NativeLibrarySpec)
+  }
+
+  repositories {
+      libs(PrebuiltLibraries) {
+        cunit {
+          headers.srcDir "lib/cunit/2.1-2/include"
+          binaries.withType(StaticLibraryBinary) {
+          staticLibraryFile = file("lib/cunit/2.1-2/lib/" +
+            findCUnitLibForPlatform(targetPlatform))
+          }
         }
-    }
+      } 
+   }
 }
 
 binaries.withType(CUnitTestSuiteBinarySpec) {
